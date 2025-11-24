@@ -34,7 +34,6 @@
                         // シンプルなドットパターンに変更
                         'dot-pattern': "url(\"data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='1' fill='%23a381d9' opacity='0.2'/%3E%3C/svg%3E\")",
                     },
-                    // アニメーションをすべて削除
                 }
             }
         }
@@ -118,19 +117,16 @@
 </head>
 <body class="relative">
 
-    <!-- ヘッダー (ロゴアイコン w-8 h-8、SVGに戻す) -->
+    <!-- ヘッダー -->
     <header class="fixed top-0 w-full z-50 transition-all duration-300 py-4" id="header">
         <div class="container mx-auto px-4">
             <div class="glass-panel rounded-full px-6 py-3 flex justify-between items-center">
                 <!-- ロゴ -->
                 <a href="#" class="text-2xl font-black text-gradient tracking-tight flex items-center gap-2">
-                    <!-- SVGアイコン (星と月を組み合わせたもの) -->
-                    <svg class="w-8 h-8 text-koyoi-pink-dark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM11.082 3.064C7.032 4.19 4 7.747 4 12C4 16.253 7.032 19.81 11.082 20.936C10.74 19.333 11 17.65 11 16C11 10.477 15.111 6.138 20.355 4.394C17.388 3.011 14.28 2.217 11.082 3.064Z" fill="currentColor"/>
-                        <path d="M18.8 6.5L16.5 8.5L14.2 6.5L16.5 4.5L18.8 6.5Z" fill="#FFF"/>
-                        <path d="M16 11L14.5 12.5L13 11L14.5 9.5L16 11Z" fill="#FFF"/>
-                        <path d="M19 13.5L17.5 15L16 13.5L17.5 12L19 13.5Z" fill="#FFF"/>
-                    </svg>
+                    
+                    <!-- 事務所ロゴ画像を参照 ('images/icon.png') -->
+                    <img src="images/icon.png" alt="こよいぷろだくしょん ロゴ" class="w-8 h-8 rounded-full object-cover">
+                    
                     こよいぷろだくしょん
                 </a>
 
@@ -323,7 +319,7 @@
         </div>
     </section>
 
-    <!-- フッター (ロゴアイコン w-7 h-7、SVGに戻す) -->
+    <!-- フッター -->
     <footer class="bg-koyoi-text pt-20 pb-10 border-t-4 border-koyoi-pink-dark relative" id="contact">
         <div class="container mx-auto px-4 text-gray-300">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
@@ -331,13 +327,9 @@
                 <div class="md:col-span-1">
                     <!-- ロゴのサイズを text-xl に調整 -->
                     <a href="#" class="text-xl font-black text-white tracking-tight flex items-center gap-2 mb-4 whitespace-nowrap">
-                        <!-- SVGアイコン (星と月を組み合わせたもの) -->
-                        <svg class="w-7 h-7 text-koyoi-pink-dark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM11.082 3.064C7.032 4.19 4 7.747 4 12C4 16.253 7.032 19.81 11.082 20.936C10.74 19.333 11 17.65 11 16C11 10.477 15.111 6.138 20.355 4.394C17.388 3.011 14.28 2.217 11.082 3.064Z" fill="currentColor"/>
-                            <path d="M18.8 6.5L16.5 8.5L14.2 6.5L16.5 4.5L18.8 6.5Z" fill="#FFF"/>
-                            <path d="M16 11L14.5 12.5L13 11L14.5 9.5L16 11Z" fill="#FFF"/>
-                            <path d="M19 13.5L17.5 15L16 13.5L17.5 12L19 13.5Z" fill="#FFF"/>
-                        </svg>
+                        <!-- 事務所ロゴ画像を参照 ('images/icon.png') -->
+                        <img src="images/icon.png" alt="こよいぷろだくしょん ロゴ" class="w-7 h-7 rounded-full object-cover">
+                        
                         こよいぷろだくしょん
                     </a>
                     <p class="font-medium text-sm leading-relaxed text-gray-400">
