@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>こよいぷろだくしょん | Next Generation VTuber Production</title>
+    
+    <!-- Google Fonts: M PLUS Rounded 1c (丸ゴシック) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"M PLUS Rounded 1c"', 'sans-serif'],
+                    },
+                    colors: {
+                        // パステルカラーに調整
+                        'koyoi-pink': '#FFD3E0', // 明るいピンク
+                        'koyoi-pink-dark': '#FF87A0', // アクセントピンク
+                        'koyoi-purple': '#E8DFF5', // 明るいラベンダー
+                        'koyoi-purple-dark': '#A381D9', // アクセントパープル
+                        'koyoi-blue': '#D4F1F4',
+                        'koyoi-text': '#1A1A1A', // 濃いテキスト (ほぼ黒)
+                    },
+                    backgroundImage: {
+                        // シンプルなドットパターンに変更
+                        'dot-pattern': "url(\"data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='1' fill='%23a381d9' opacity='0.2'/%3E%3C/svg%3E\")",
+                    },
+                    // アニメーションをすべて削除
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 全体の調整 */
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            color: #333333;
+            background-color: #F8F8F8; /* 明るいグレーに変更 */
+            overflow-x: hidden;
+        }
+
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F0F0F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF87A0;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6A85;
+        }
+
+        /* 洗練されたボタンエフェクト */
+        .btn-smooth {
+            transition: transform 0.2s ease-out, box-shadow 0.3s;
+        }
+        .btn-smooth:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 135, 160, 0.4);
+        }
+        .btn-smooth:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(255, 135, 160, 0.3);
+        }
+
+        /* 波線セパレーター */
+        .wave-separator {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            bottom: -1px;
+            left: 0;
+            line-height: 0;
+            z-index: 1;
+        }
+        .wave-separator-top {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: -1px;
+            left: 0;
+            line-height: 0;
+            z-index: 1;
+            transform: rotate(180deg);
+        }
+        
+        /* グラデーションテキスト - コントラストを改善 */
+        .text-gradient {
+            background: linear-gradient(135deg, #FF6A85 0%, #8561C7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* クリーンなガラスモーフィズム */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- ヘッダー (ロゴアイコン w-8 h-8、SVGに戻す) -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-4" id="header">
+        <div class="container mx-auto px-4">
+            <div class="glass-panel rounded-full px-6 py-3 flex justify-between items-center">
+                <!-- ロゴ -->
+                <a href="#" class="text-2xl font-black text-gradient tracking-tight flex items-center gap-2">
+                    <!-- SVGアイコン (星と月を組み合わせたもの) -->
+                    <svg class="w-8 h-8 text-koyoi-pink-dark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM11.082 3.064C7.032 4.19 4 7.747 4 12C4 16.253 7.032 19.81 11.082 20.936C10.74 19.333 11 17.65 11 16C11 10.477 15.111 6.138 20.355 4.394C17.388 3.011 14.28 2.217 11.082 3.064Z" fill="currentColor"/>
+                        <path d="M18.8 6.5L16.5 8.5L14.2 6.5L16.5 4.5L18.8 6.5Z" fill="#FFF"/>
+                        <path d="M16 11L14.5 12.5L13 11L14.5 9.5L16 11Z" fill="#FFF"/>
+                        <path d="M19 13.5L17.5 15L16 13.5L17.5 12L19 13.5Z" fill="#FFF"/>
+                    </svg>
+                    こよいぷろだくしょん
+                </a>
+
+                <!-- PCメニュー -->
+                <nav class="hidden md:flex items-center space-x-2">
+                    <a href="#about" class="px-5 py-2 text-koyoi-text font-bold hover:text-koyoi-pink-dark transition-colors rounded-full hover:bg-koyoi-pink/30">ABOUT</a>
+                    <a href="#talents" class="px-5 py-2 text-koyoi-text font-bold hover:text-koyoi-pink-dark transition-colors rounded-full hover:bg-koyoi-pink/30">TALENTS</a>
+                    <a href="#audition" class="px-5 py-2 text-koyoi-text font-bold hover:text-koyoi-pink-dark transition-colors rounded-full hover:bg-koyoi-pink/30">AUDITION</a>
+                    <a href="#contact" class="ml-4 bg-gradient-to-r from-koyoi-pink-dark to-koyoi-purple-dark text-white px-6 py-2.5 rounded-full font-bold shadow-lg btn-smooth">
+                        お問い合わせ
+                    </a>
+                </nav>
+
+                <!-- ハンバーガーメニュー -->
+                <button id="menu-btn" class="md:hidden text-koyoi-pink-dark p-2 rounded-full hover:bg-koyoi-pink/30 transition-colors">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- モバイルメニュー -->
+        <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-3xl p-6 shadow-xl transform md:hidden">
+            <div class="flex flex-col space-y-4 text-center">
+                <a href="#about" class="text-lg font-bold text-koyoi-text py-2 hover:bg-koyoi-pink/30 rounded-xl">ABOUT</a>
+                <a href="#talents" class="text-lg font-bold text-koyoi-text py-2 hover:bg-koyoi-pink/30 rounded-xl">TALENTS</a>
+                <a href="#audition" class="text-lg font-bold text-koyoi-text py-2 hover:bg-koyoi-pink/30 rounded-xl">AUDITION</a>
+                <a href="#contact" class="bg-koyoi-pink-dark text-white font-bold py-3 rounded-xl shadow-md">お問い合わせ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="relative pt-40 pb-32 md:pt-52 md:pb-48 overflow-hidden bg-koyoi-purple/30">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            
+            <!-- 上部の小さな装飾 -->
+            <div class="inline-block mb-6 px-6 py-2 rounded-full bg-white border-2 border-koyoi-pink-dark text-koyoi-pink-dark font-bold shadow-md">
+                ✨ ここから、あなたの物語が始まる
+            </div>
+
+            <!-- メインタイトル -->
+            <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight text-koyoi-text relative inline-block drop-shadow-lg">
+                今宵、物語を<span class="text-gradient">共につくる。</span>
+            </h1>
+
+            <!-- サブメッセージ: 行数調整済み -->
+            <p class="text-base md:text-base text-gray-600 mb-10 max-w-4xl mx-auto font-medium leading-relaxed bg-white/70 backdrop-blur-sm p-4 rounded-3xl border border-gray-100 shadow-inner">
+                今宵、物語は動き出す。「こよいぷろだくしょん」は、挑戦したいすべての人が、一歩踏み出せる場所です。<br>
+                配信活動、クリエイティブ制作、タレント活動。どんな道でも、あなたが輝けるように——
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#audition" class="bg-gradient-to-r from-koyoi-pink-dark to-koyoi-purple-dark text-white text-xl font-bold px-12 py-5 rounded-full shadow-lg btn-smooth">
+                    🚀 タレント募集を見る
+                </a>
+                <a href="#about" class="bg-white border-2 border-koyoi-purple-dark text-koyoi-purple-dark text-xl font-bold px-12 py-5 rounded-full shadow-lg hover:bg-purple-50 transition-all btn-smooth">
+                    ✨ プロダクション理念
+                </a>
+            </div>
+        </div>
+
+        <!-- 下部の波線 -->
+        <div class="wave-separator text-white">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#F8F8F8"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ABOUTセクション (コンセプト更新) -->
+    <section id="about" class="py-24 bg-[#F8F8F8] relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-koyoi-pink-dark font-bold text-lg tracking-widest">COMMITMENT</span>
+                <h2 class="text-4xl md:text-5xl font-black text-koyoi-text mt-2">
+                    <span class="inline-block border-b-4 border-koyoi-pink-dark pb-1">3つの柱</span>
+                </h2>
+            </div>
+
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Card 1: 個別戦略設計 (パーソナルブランディング) -->
+                <div class="bg-white rounded-[30px] p-8 text-left border-t-8 border-koyoi-pink-dark shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4 bg-koyoi-pink/50 inline-block p-3 rounded-xl">📊</div>
+                    <h3 class="text-2xl font-extrabold text-koyoi-pink-dark mb-2">1. 個別戦略設計</h3>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">緻密なパーソナルブランディング</h4>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        タレント一人ひとりの強み、ターゲット層、市場動向を分析し、最適なキャラクター設定と成長ロードマップを共同で作成します。
+                    </p>
+                </div>
+
+                <!-- Card 2: 最先端技術支援 (ハイクオリティな制作環境) -->
+                <div class="bg-white rounded-[30px] p-8 text-left border-t-8 border-koyoi-purple-dark shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4 bg-koyoi-purple/50 inline-block p-3 rounded-xl">⚙️</div>
+                    <h3 class="text-2xl font-extrabold text-koyoi-purple-dark mb-2">2. 最先端技術支援</h3>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">ハイクオリティな制作環境</h4>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        高解像度モデル、最新トラッキングシステム、プロ仕様のレコーディング環境など、最高のクオリティで活動できる環境を提供します。
+                    </p>
+                </div>
+
+                <!-- Card 3: メンタル&キャリアサポート (活動継続支援) -->
+                <div class="bg-white rounded-[30px] p-8 text-left border-t-8 border-koyoi-pink-dark shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4 bg-koyoi-pink/50 inline-block p-3 rounded-xl">🤝</div>
+                    <h3 class="text-2xl font-extrabold text-koyoi-pink-dark mb-2">3. メンタル&キャリアサポート</h3>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">長期的な活動継続支援</h4>
+                    <p class="text-gray-600 font-medium leading-relaxed">
+                        専門スタッフによるメンタルケアや、企業案件・グッズ展開など、長期的に活躍するための包括的なキャリアサポートを実施します。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TALENTSセクション -->
+    <section id="talents" class="py-24 bg-gradient-to-b from-[#F8F8F8] to-koyoi-purple/20 relative">
+        <!-- 上部の波線 -->
+        <div class="wave-separator-top text-[#F8F8F8]">
+             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#F8F8F8"></path>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 mt-10">
+            <div class="text-center mb-16">
+                <span class="text-koyoi-purple-dark font-bold text-lg tracking-widest">ROSTER</span>
+                <h2 class="text-4xl md:text-5xl font-black text-koyoi-text mt-2">
+                    <span class="inline-block border-b-4 border-koyoi-purple-dark pb-1">所属タレント</span>
+                </h2>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-[50px] p-12 text-center shadow-2xl border-4 border-dashed border-koyoi-purple relative overflow-hidden">
+                <!-- 背景パターン -->
+                <div class="absolute inset-0 bg-dot-pattern opacity-60"></div>
+                
+                <div class="relative z-10">
+                    <h3 class="text-3xl md:text-5xl font-extrabold text-koyoi-text mb-4">1期生デビュープロジェクト</h3>
+                    <p class="text-xl text-gray-500 mb-8 font-bold">2026年春、詳細発表予定</p>
+
+                    <!-- シルエット風表現 -->
+                    <div class="flex justify-center items-end gap-4 md:gap-8 mb-10 h-40">
+                        <!-- Silhouette 1 -->
+                        <div class="w-24 h-32 md:w-32 md:h-40 bg-gray-200 rounded-t-full relative group cursor-pointer hover:bg-koyoi-pink/50 transition-colors">
+                            <div class="absolute inset-0 flex items-center justify-center text-koyoi-text text-3xl opacity-0 group-hover:opacity-100 transition-opacity font-bold">???</div>
+                        </div>
+                        <!-- Silhouette 2 (Center) -->
+                        <div class="w-24 h-36 md:w-32 md:h-48 bg-gray-300 rounded-t-full relative group cursor-pointer -mt-4 hover:bg-koyoi-purple/50 transition-colors">
+                            <div class="absolute inset-0 flex items-center justify-center text-koyoi-text text-3xl opacity-0 group-hover:opacity-100 transition-opacity font-bold">???</div>
+                        </div>
+                        <!-- Silhouette 3 -->
+                        <div class="w-24 h-32 md:w-32 md:h-40 bg-gray-200 rounded-t-full relative group cursor-pointer hover:bg-koyoi-pink/50 transition-colors">
+                            <div class="absolute inset-0 flex items-center justify-center text-koyoi-text text-3xl opacity-0 group-hover:opacity-100 transition-opacity font-bold">???</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 font-medium text-lg">
+                        最新情報は随時更新されますので、しばらくお待ちください。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- オーディションセクション -->
+    <section id="audition" class="py-24 bg-koyoi-pink-dark relative overflow-hidden">
+        <!-- 背景の装飾 -->
+        <div class="absolute top-0 left-0 w-full h-full bg-dot-pattern opacity-10"></div>
+        <div class="absolute -right-20 top-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
+        <div class="absolute -left-20 bottom-20 w-64 h-64 bg-koyoi-purple-dark opacity-10 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="bg-white/95 backdrop-blur-md rounded-[50px] p-8 md:p-16 max-w-5xl mx-auto shadow-2xl border-8 border-white text-center">
+                
+                <h2 class="text-4xl md:text-6xl font-black text-koyoi-text mb-6 tracking-tight">
+                    <span class="text-koyoi-pink-dark">「あなた」</span>を、<br>
+                    <span class="text-koyoi-purple-dark">「スター」</span>にする。
+                </h2>
+
+                <p class="text-lg md:text-xl text-gray-600 mb-10 font-bold">
+                    夢と可能性に溢れる、次世代のタレントを募集します。<br>
+                    あなたの「個性」を輝かせるための舞台は整っています。
+                </p>
+
+                <a href="#" class="inline-block bg-gradient-to-r from-koyoi-pink-dark to-koyoi-purple-dark text-white text-2xl font-black px-16 py-6 rounded-full shadow-xl shadow-pink-200 btn-smooth tracking-wider relative overflow-hidden">
+                    エントリーフォームへ進む
+                </a>
+                <p class="mt-4 text-sm text-gray-400 font-bold">※募集要項をご確認の上、ご応募ください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター (ロゴアイコン w-7 h-7、SVGに戻す) -->
+    <footer class="bg-koyoi-text pt-20 pb-10 border-t-4 border-koyoi-pink-dark relative" id="contact">
+        <div class="container mx-auto px-4 text-gray-300">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+                
+                <div class="md:col-span-1">
+                    <!-- ロゴのサイズを text-xl に調整 -->
+                    <a href="#" class="text-xl font-black text-white tracking-tight flex items-center gap-2 mb-4 whitespace-nowrap">
+                        <!-- SVGアイコン (星と月を組み合わせたもの) -->
+                        <svg class="w-7 h-7 text-koyoi-pink-dark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM11.082 3.064C7.032 4.19 4 7.747 4 12C4 16.253 7.032 19.81 11.082 20.936C10.74 19.333 11 17.65 11 16C11 10.477 15.111 6.138 20.355 4.394C17.388 3.011 14.28 2.217 11.082 3.064Z" fill="currentColor"/>
+                            <path d="M18.8 6.5L16.5 8.5L14.2 6.5L16.5 4.5L18.8 6.5Z" fill="#FFF"/>
+                            <path d="M16 11L14.5 12.5L13 11L14.5 9.5L16 11Z" fill="#FFF"/>
+                            <path d="M19 13.5L17.5 15L16 13.5L17.5 12L19 13.5Z" fill="#FFF"/>
+                        </svg>
+                        こよいぷろだくしょん
+                    </a>
+                    <p class="font-medium text-sm leading-relaxed text-gray-400">
+                        かわいい、たのしい、あたらしい。<br>
+                        VTuber活動を全力でサポートします。
+                    </p>
+                </div>
+
+                <div class="md:col-span-1">
+                    <h4 class="font-bold text-white mb-4 border-b-2 border-koyoi-pink-dark inline-block pb-1">Link</h4>
+                    <ul class="space-y-3 font-medium text-gray-400">
+                        <li><a href="#about" class="hover:text-koyoi-pink-dark transition-colors">コンセプト</a></li>
+                        <li><a href="#talents" class="hover:text-koyoi-pink-dark transition-colors">タレント</a></li>
+                        <li><a href="#audition" class="hover:text-koyoi-pink-dark transition-colors">オーディション</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-2">
+                    <h4 class="font-bold text-white mb-4 border-b-2 border-koyoi-pink-dark inline-block pb-1">ビジネス・その他</h4>
+                    <ul class="space-y-3 font-medium text-gray-400">
+                        <li><a href="#" class="hover:text-koyoi-pink-dark transition-colors">ビジネス提携窓口</a></li>
+                        <li><a href="#" class="hover:text-koyoi-pink-dark transition-colors">プライバシーポリシー</a></li>
+                        <li><a href="#" class="hover:text-koyoi-pink-dark transition-colors">採用情報 (スタッフ)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-sm text-gray-500 font-bold">&copy; 2026 Koyoi Production. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- モバイルメニューの開閉とスクロール連動 ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const header = document.getElementById('header');
+
+        // 1. モバイルメニューの開閉
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 2. メニューリンクをクリックしたら閉じる（スムーズスクロール対応）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // #単独のリンクの場合は、ページトップにスクロールし、エラーを回避する
+                if (href === '#') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    
+                    // モバイルメニューを閉じる
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    return; // ここで処理を終了
+                }
+
+                const targetElement = document.querySelector(href);
+                
+                if (targetElement) {
+                    e.preventDefault();
+                    
+                    // ヘッダーの高さを取得してオフセットを設定
+                    const headerHeight = header.offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                    // スムーズスクロールを実行
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+                
+                // モバイルメニューを閉じる
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // 3. スクロール時のヘッダー制御（少し影をつける）
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>
