@@ -157,7 +157,7 @@ a {
 }
 
 .hero-message {
-    max-width: 980px;
+    max-width: 100%;
     margin: 0 auto;
     text-align: center;
 }
@@ -192,11 +192,14 @@ a {
 }
 
 .page-title {
+    display: inline-block;
+    max-width: 100%;
     margin: 34px 0 28px;
-    font-size: clamp(2.7rem, 6.4vw, 6.4rem);
-    line-height: 1.12;
+    font-size: clamp(2.2rem, 4.4vw, 5rem);
+    line-height: 1.18;
     font-weight: 950;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    text-align: left;
 }
 
 .title-line {
@@ -205,7 +208,7 @@ a {
 }
 
 .title-line-sub {
-    transform: translateX(1.25em);
+    padding-left: 2.1em;
 }
 
 .text-gradient {
@@ -427,6 +430,14 @@ a {
     .flow-card {
         border-width: 0 0 1px 0;
     }
+
+    .page-title {
+        font-size: clamp(2rem, 6.6vw, 4rem);
+    }
+
+    .title-line-sub {
+        padding-left: 1.6em;
+    }
 }
 
 @media (max-width: 560px) {
@@ -450,12 +461,12 @@ a {
 
     .page-title {
         margin-top: 28px;
-        font-size: clamp(2.15rem, 11vw, 3.6rem);
-        line-height: 1.18;
+        font-size: clamp(1.65rem, 8vw, 2.75rem);
+        line-height: 1.22;
     }
 
     .title-line-sub {
-        transform: translateX(0.7em);
+        padding-left: 1.1em;
     }
 
     .hero-copy {
@@ -521,7 +532,7 @@ a {
                 <div class="eyebrow">About</div>
 
                 <h1 class="page-title text-gradient">
-                    <span class="title-line title-line-main">まだ誰も知らない声を</span>
+                    <span class="title-line">まだ誰も知らない声を</span>
                     <span class="title-line title-line-sub">今宵から</span>
                 </h1>
 
