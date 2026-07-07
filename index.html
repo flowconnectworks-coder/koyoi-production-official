@@ -1,196 +1,666 @@
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>今宵プロダクション | Beyond the Silence.</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 
-                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
-                    },
-                    colors: {
-                        'koyoi-night': '#08090d',
-                        'koyoi-gold': '#d4af37',
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今宵プロダクション | Beyond the Silence.</title>
 
-    <style>
-        body { background-color: #08090d; color: #fdfcf0; letter-spacing: 0.15em; }
-        
-        header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            background-color: rgba(8, 9, 13, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.4s ease;
-        }
-        
-        header.scrolled {
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            background-color: rgba(8, 9, 13, 0.9);
-        }
+<style>
+:root {
+    --bg: #08090d;
+    --panel: rgba(16, 17, 23, 0.78);
+    --panel-strong: rgba(20, 20, 26, 0.94);
+    --text: #fdfcf0;
+    --soft: rgba(253, 252, 240, 0.72);
+    --muted: rgba(253, 252, 240, 0.44);
+    --line: rgba(253, 252, 240, 0.1);
+    --gold: #d4af37;
+    --gold-soft: rgba(212, 175, 55, 0.16);
+    --rose: #b77973;
+    --max: 1120px;
+}
 
-        .font-logo { font-weight: 900; letter-spacing: 0.4em; }
-        .text-gradient {
-            background: linear-gradient(135deg, #d4af37 0%, #ffffff 50%, #aa8a2e 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .talent-card-secret {
-            background: linear-gradient(145deg, #111827 0%, #08090d 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative; overflow: hidden;
-        }
-        .talent-card-secret::before {
-            content: "COMING SOON"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 0.55rem; letter-spacing: 0.8em; color: rgba(212, 175, 55, 0.1);
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .contact-card {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-        }
-        .contact-card:hover { border-color: #d4af37; background: rgba(212, 175, 55, 0.03); }
+body {
+    margin: 0;
+    color: var(--text);
+    font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.85;
+    letter-spacing: 0.08em;
+    background:
+        radial-gradient(circle at 12% 10%, rgba(212, 175, 55, 0.14), transparent 26%),
+        radial-gradient(circle at 84% 18%, rgba(183, 121, 115, 0.09), transparent 28%),
+        linear-gradient(155deg, #08090d 0%, #121016 52%, #07070a 100%);
+    background-size: auto;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
 
-        .email-text {
-            white-space: nowrap;
-            word-break: keep-all;
-        }
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 50;
+}
 
-        .noise-overlay {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.015; pointer-events: none;
-        }
-    </style>
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(var(--max), calc(100% - 44px));
+    margin: 0 auto;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    z-index: 40;
+    width: 100%;
+    padding: 16px 0;
+    background: rgba(8, 9, 13, 0.72);
+    border-bottom: 1px solid rgba(253, 252, 240, 0.06);
+    backdrop-filter: blur(14px);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-mark {
+    width: 36px;
+    aspect-ratio: 1;
+    display: block;
+    object-fit: cover;
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    background: rgba(253, 252, 240, 0.04);
+}
+
+.brand-name {
+    display: block;
+}
+
+.brand-name strong {
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 13px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.nav a:hover {
+    color: var(--text);
+    background: rgba(253, 252, 240, 0.07);
+}
+
+.nav .nav-cta {
+    color: #15120a;
+    background: var(--gold);
+}
+
+.hero {
+    position: relative;
+    min-height: 94vh;
+    display: grid;
+    align-items: center;
+    padding: 140px 0 92px;
+    overflow: hidden;
+}
+
+.hero-icon {
+    position: absolute;
+    right: max(22px, calc((100vw - var(--max)) / 2));
+    bottom: 96px;
+    width: min(34vw, 360px);
+    opacity: 0.18;
+    filter: saturate(1.05);
+    pointer-events: none;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: var(--gold);
+}
+
+.hero-title {
+    max-width: 940px;
+    margin: 18px 0 28px;
+    font-size: clamp(3.8rem, 10vw, 8.9rem);
+    line-height: 0.9;
+    font-weight: 950;
+    font-style: italic;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #d4af37 0%, #fffaf0 48%, #9c7826 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-copy {
+    max-width: none;
+    margin: 0 0 34px;
+    padding-left: 22px;
+    border-left: 1px solid rgba(212, 175, 55, 0.34);
+}
+
+.hero-copy strong {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(253, 252, 240, 0.86);
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+}
+
+.hero-copy span {
+    display: block;
+    white-space: nowrap;
+    color: var(--soft);
+    font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+    letter-spacing: 0.04em;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    background: rgba(253, 252, 240, 0.03);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    border-color: transparent;
+    color: #15120a;
+    background: linear-gradient(135deg, #f6e7a6, var(--gold) 54%, #a47e27);
+    box-shadow: 0 18px 48px rgba(212, 175, 55, 0.18);
+}
+
+.section {
+    padding: 110px 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 30px;
+    margin-bottom: 36px;
+}
+
+.section-title {
+    margin: 10px 0 0;
+    font-size: clamp(2.2rem, 5.4vw, 5rem);
+    line-height: 0.95;
+    font-weight: 950;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+.section-copy {
+    max-width: 430px;
+    margin: 0;
+    color: var(--soft);
+    font-size: 0.92rem;
+}
+
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.concept-card,
+.talent-card,
+.flow-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    backdrop-filter: blur(18px);
+}
+
+.concept-card {
+    min-height: 250px;
+    padding: 28px;
+}
+
+.card-num {
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+}
+
+.concept-card h3 {
+    margin: 24px 0 14px;
+    font-size: 1.18rem;
+    line-height: 1.5;
+}
+
+.concept-card p,
+.flow-card p {
+    margin: 0;
+    color: var(--soft);
+    font-size: 0.9rem;
+}
+
+.talent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.talent-card {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    opacity: 0.9;
+}
+
+.talent-card::before {
+    content: "COMING SOON";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(212, 175, 55, 0.13);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.48em;
+}
+
+.talent-card:nth-child(2) { opacity: 0.68; }
+.talent-card:nth-child(3) { opacity: 0.46; }
+.talent-card:nth-child(4) { opacity: 0.28; }
+
+.audition-panel {
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    background:
+        linear-gradient(135deg, rgba(212, 175, 55, 0.16), transparent 36%),
+        linear-gradient(315deg, rgba(183, 121, 115, 0.12), transparent 44%),
+        var(--panel-strong);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+}
+
+.audition-main {
+    display: block;
+    align-items: center;
+    padding: clamp(30px, 5vw, 58px);
+}
+
+.audition-main h2 {
+    margin: 10px 0 18px;
+    font-size: clamp(2.2rem, 5vw, 5.2rem);
+    line-height: 0.95;
+    font-weight: 950;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+.audition-main p {
+    max-width: 680px;
+    margin: 0 0 28px;
+    color: var(--soft);
+}
+
+.flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+}
+
+.flow-card {
+    min-height: 190px;
+    padding: 24px;
+    border-width: 0 1px 0 0;
+}
+
+.flow-card:last-child {
+    border-right: 0;
+}
+
+.flow-card b {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    aspect-ratio: 1;
+    margin-bottom: 18px;
+    color: #15120a;
+    background: var(--gold);
+    font-size: 0.75rem;
+}
+
+.flow-card h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+}
+
+.contact-grid {
+    display: block;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    min-height: 0;
+    padding: 30px 34px;
+    border: 1px solid var(--line);
+    background: rgba(253, 252, 240, 0.025);
+    color: var(--text);
+    text-decoration: none;
+}
+
+.contact-card + .contact-card {
+    margin-top: 14px;
+}
+
+.contact-card small {
+    color: var(--gold);
+    font-weight: 900;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.contact-card strong {
+    display: block;
+    margin: 0;
+    font-size: clamp(1.15rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: 0;
+    white-space: nowrap;
+    user-select: text;
+}
+
+.footer {
+    padding: 56px 0;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 800;
+}
+
+.footer-inner a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-inner a:hover {
+    color: var(--gold);
+}
+
+@media (max-width: 900px) {
+    .nav a:not(.nav-cta) {
+        display: none;
+    }
+
+    .section-head,
+    .footer-inner {
+        display: block;
+    }
+
+    .section-copy {
+        margin-top: 18px;
+    }
+
+    .flow-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .talent-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .flow-card {
+        border-width: 0 0 1px 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .container {
+        width: calc(100% - 30px);
+    }
+
+    .site-header {
+        padding: 12px 0;
+    }
+
+    .brand-name strong {
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+    }
+
+    .hero {
+        min-height: 760px;
+        padding-top: 116px;
+    }
+
+    .hero-title {
+        font-size: clamp(3.6rem, 18vw, 5rem);
+    }
+
+    .hero-copy span {
+        white-space: normal;
+        font-size: 0.74rem;
+        line-height: 1.8;
+        letter-spacing: 0;
+    }
+
+    .hero-icon {
+        right: -42px;
+        bottom: 84px;
+        width: 72vw;
+        opacity: 0.12;
+    }
+
+    .section {
+        padding: 76px 0;
+    }
+
+    .talent-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-card strong {
+        font-size: 1.05rem;
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+}
+</style>
 </head>
-<body class="antialiased overflow-x-hidden font-sans text-[#fdfcf0]">
 
-    <div class="fixed inset-0 noise-overlay z-[100]"></div>
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#" class="brand">
+            <img class="brand-mark" src="icon.png" alt="今宵プロダクション">
+            <span class="brand-name">
+                <strong>今宵プロダクション</strong>
+            </span>
+        </a>
+        <nav class="nav">
+            <a href="#talents">Talents</a>
+            <a href="koyoi-audition.html">Audition</a>
+            <a href="#contact">Contact</a>
+            <a class="nav-cta" href="koyoi-audition.html">Entry</a>
+        </nav>
+    </div>
+</header>
 
-    <header class="fixed top-0 w-full z-50 py-6 px-6 md:px-12" id="header">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-3">
-                    <img src="icon.png" alt="Logo" class="w-5 h-5 object-contain">
-                    <h1 class="text-sm md:text-base font-logo uppercase text-white leading-none tracking-[0.4em]">今宵プロダクション</h1>
-                </div>
-                <div class="flex items-center gap-2 opacity-30 mt-1 pl-8">
-                    <div class="w-3 h-[1px] bg-white"></div>
-                    <span class="text-[7px] md:text-[8px] font-medium tracking-[0.2em] uppercase leading-none">Operated by GLOWENGINE LLC.</span>
-                </div>
+<main>
+    <section class="hero">
+        <div class="container">
+            <div class="eyebrow">Premium ASMR Agency</div>
+            <h1 class="hero-title text-gradient">Beyond the<br>Silence.</h1>
+            <div class="hero-copy">
+                <strong>静寂のその先へ。</strong>
+                <span>「今宵プロダクション」はASMR配信を主軸とする、次世代のクリエイティブ・エージェンシーです。</span>
             </div>
-            
-            <nav class="flex items-center gap-6 md:gap-10">
-                <a href="#talents" class="hidden md:block text-[9px] font-bold tracking-[0.4em] uppercase opacity-40 hover:opacity-100 transition-opacity">Talents</a>
-                <a href="https://glowengine-llc.com/" target="_blank" class="text-[9px] font-black tracking-[0.2em] uppercase px-5 py-2.5 border border-koyoi-gold/40 rounded-sm hover:bg-koyoi-gold hover:text-koyoi-night transition-all">
-                    Corporate Site
-                </a>
-            </nav>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="koyoi-audition.html">Audition Entry</a>
+                <a class="btn" href="#contact">Contact</a>
+            </div>
+            <img class="hero-icon" src="icon.png" alt="">
         </div>
-    </header>
+    </section>
 
-    <main>
-        <section class="h-[95vh] flex flex-col justify-center px-6 md:px-24">
-            <div data-aos="fade-up">
-                <p class="text-[9px] font-black tracking-[1em] text-koyoi-gold mb-6 uppercase opacity-80">Premium ASMR Agency</p>
-                <h2 class="text-5xl md:text-[110px] font-black leading-none mb-10 tracking-tighter text-gradient uppercase italic">
-                    Beyond the<br>Silence.
-                </h2>
-                <div class="flex flex-col gap-4 max-w-2xl border-l border-koyoi-gold/30 pl-6 ml-1">
-                    <p class="text-[13px] md:text-sm leading-relaxed opacity-60 font-bold tracking-[0.1em]">
-                        静寂のその先へ。
-                    </p>
-                    <p class="text-[11px] md:text-xs leading-relaxed opacity-40 font-medium tracking-[0.1em]">
-                        「今宵プロダクション」はASMR配信を主軸とする、次世代のクリエイティブ・エージェンシーです。
-                    </p>
+    <section class="section" id="talents">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <div class="eyebrow">Talents</div>
+                    <h2 class="section-title">Streamers</h2>
                 </div>
+                <p class="section-copy">所属・提携クリエイター情報は準備中です。公開可能な情報から順次掲載します。</p>
             </div>
-        </section>
 
-        <section id="talents" class="py-48 px-6 md:px-12">
-            <div class="max-w-7xl mx-auto">
-                <div class="mb-24 flex items-end justify-between border-b border-white/5 pb-8">
+            <div class="talent-grid">
+                <div class="talent-card"></div>
+                <div class="talent-card"></div>
+                <div class="talent-card"></div>
+                <div class="talent-card"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="audition">
+        <div class="container">
+            <div class="audition-panel">
+                <div class="audition-main">
                     <div>
-                        <h3 class="text-xs font-logo tracking-[0.8em] text-koyoi-gold uppercase mb-2">Talents</h3>
-                        <p class="text-[9px] opacity-20 uppercase tracking-[0.3em]">Affiliated Streamers</p>
+                        <div class="eyebrow">Talent Audition</div>
+                        <h2>Audition</h2>
+                        <p>今宵プロダクションでは、ASMR配信・音声活動を継続的に伸ばしていきたいクリエイターを募集しています。経験の有無よりも、声の表現を大切にし、長く活動していく意思を重視します。</p>
+                        <a class="btn btn-primary" href="koyoi-audition.html">オーディション詳細へ</a>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10">
-                    <div data-aos="fade-up" class="talent-card-secret aspect-[3/4] rounded-sm"></div>
-                    <div data-aos="fade-up" data-aos-delay="100" class="talent-card-secret aspect-[3/4] rounded-sm opacity-60"></div>
-                    <div data-aos="fade-up" data-aos-delay="200" class="talent-card-secret aspect-[3/4] rounded-sm opacity-40"></div>
-                    <div data-aos="fade-up" data-aos-delay="300" class="talent-card-secret aspect-[3/4] rounded-sm opacity-20"></div>
-                </div>
-            </div>
-        </section>
 
-        <section id="connect" class="py-48 px-6 bg-white/[0.01] border-t border-white/5">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-                    <a href="https://x.com/" target="_blank" data-aos="fade-right" class="contact-card p-12 md:p-16 flex flex-col items-start group">
-                        <span class="text-[9px] font-black tracking-[0.6em] text-koyoi-gold uppercase mb-16 opacity-70">Official X (Twitter)</span>
-                        <div class="text-4xl md:text-7xl font-black tracking-tighter mb-6 group-hover:text-koyoi-gold transition-colors text-white/90 text-gradient">@koyoi_prod</div>
-                        <div class="flex items-center gap-4 opacity-20 group-hover:opacity-100 transition-all group-hover:gap-6">
-                            <span class="text-[9px] tracking-[0.5em] font-bold italic">FOLLOW US</span>
-                            <div class="w-12 h-[1px] bg-white group-hover:bg-koyoi-gold"></div>
-                        </div>
-                    </a>
-
-                    <a href="mailto:info@glowengine-llc.com" data-aos="fade-left" class="contact-card p-12 md:p-16 flex flex-col items-start group">
-                        <span class="text-[9px] font-black tracking-[0.6em] text-koyoi-gold uppercase mb-16 opacity-70">Contact Inquiry</span>
-                        <div class="email-text text-xl md:text-3xl font-light tracking-widest mb-8 italic text-white/90 group-hover:text-white transition-colors">info@glowengine-llc.com</div>
-                        <p class="text-[10px] md:text-[11px] opacity-40 group-hover:opacity-70 tracking-[0.3em] font-bold transition-opacity">案件依頼はこちらに</p>
-                    </a>
+                <div class="flow-grid">
+                    <article class="flow-card">
+                        <b>01</b>
+                        <h3>応募</h3>
+                        <p>活動内容、SNS、音声サンプルなどを確認します。</p>
+                    </article>
+                    <article class="flow-card">
+                        <b>02</b>
+                        <h3>オンライン面談</h3>
+                        <p>活動方針やサポート内容の相性をすり合わせます。</p>
+                    </article>
+                    <article class="flow-card">
+                        <b>03</b>
+                        <h3>準備期間</h3>
+                        <p>必要に応じて配信設計や環境づくりを整えます。</p>
+                    </article>
+                    <article class="flow-card">
+                        <b>04</b>
+                        <h3>活動開始</h3>
+                        <p>初動設計から継続運用まで伴走します。</p>
+                    </article>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-24 px-6 border-t border-white/5 bg-black">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
-                <div class="flex items-center gap-3">
-                    <img src="icon.png" alt="Logo" class="w-5 h-5 object-contain">
-                    <span class="text-[10px] font-logo uppercase text-white tracking-[0.5em]">今宵プロダクション</span>
-                </div>
-                <p class="text-[8px] font-medium tracking-[0.6em] opacity-20 uppercase">
-                    &copy; 2026 GLOWENGINE LLC. ALL RIGHTS RESERVED.
-                </p>
-            </div>
-            <div class="flex gap-10 opacity-30 text-[9px] font-bold tracking-[0.4em]">
-                <a href="#" class="hover:text-koyoi-gold transition-colors uppercase">X (Twitter)</a>
-                <a href="https://glowengine-llc.com/" target="_blank" class="hover:text-koyoi-gold transition-colors uppercase">Corporate Site</a>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ once: true, duration: 1200, easing: 'ease-out-expo' });
-        
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    </script>
+    <section class="section" id="contact">
+        <div class="container contact-grid">
+            <a href="https://x.com/" target="_blank" rel="noopener" class="contact-card">
+                <small>Official X</small>
+                <strong>@koyoi_prod</strong>
+            </a>
+            <div class="contact-card">
+                <small>Contact Inquiry</small>
+                <strong>info@glowengine-llc.com</strong>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <a href="https://glowengine-llc.com/" target="_blank" rel="noopener">&copy; 2026 GlowEngine LLC. All Rights Reserved.</a>
+    </div>
+</footer>
 </body>
 </html>
