@@ -199,6 +199,15 @@ a {
     letter-spacing: 0.02em;
 }
 
+.title-line {
+    display: block;
+    white-space: nowrap;
+}
+
+.title-line-sub {
+    transform: translateX(1.25em);
+}
+
 .text-gradient {
     background: linear-gradient(135deg, #d4af37 0%, #fffaf0 48%, #9c7826 100%);
     -webkit-background-clip: text;
@@ -441,8 +450,12 @@ a {
 
     .page-title {
         margin-top: 28px;
-        font-size: clamp(2.4rem, 13vw, 4rem);
+        font-size: clamp(2.15rem, 11vw, 3.6rem);
         line-height: 1.18;
+    }
+
+    .title-line-sub {
+        transform: translateX(0.7em);
     }
 
     .hero-copy {
@@ -507,7 +520,10 @@ a {
                 <div class="hero-dot"></div>
                 <div class="eyebrow">About</div>
 
-                <h1 class="page-title text-gradient">まだ誰も知らない声を、<br>今宵から</h1>
+                <h1 class="page-title text-gradient">
+                    <span class="title-line title-line-main">まだ誰も知らない声を</span>
+                    <span class="title-line title-line-sub">今宵から</span>
+                </h1>
 
                 <p class="hero-copy">
                     今宵プロダクションは、<strong>ASMR配信・音声活動に本気で向き合うクリエイター</strong>を支えるプロダクションです。<br>
