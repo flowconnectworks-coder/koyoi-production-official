@@ -267,13 +267,6 @@ a {
     text-transform: uppercase;
 }
 
-.section-copy {
-    max-width: 430px;
-    margin: 0;
-    color: var(--soft);
-    font-size: 0.92rem;
-}
-
 .requirement-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -373,6 +366,9 @@ a {
 
 .entry-section .section-title {
     font-style: italic;
+    white-space: nowrap;
+    font-size: clamp(2rem, 6vw, 4.8rem);
+    letter-spacing: -0.06em;
 }
 
 .footer {
@@ -409,10 +405,6 @@ a {
     .section-head,
     .footer-inner {
         display: block;
-    }
-
-    .section-copy {
-        margin-top: 18px;
     }
 
     .requirement-grid {
@@ -481,6 +473,11 @@ a {
     .entry-simple-btn {
         width: 100%;
     }
+
+    .entry-section .section-title {
+        font-size: clamp(1.55rem, 7vw, 2.3rem);
+        white-space: nowrap;
+    }
 }
 </style>
 </head>
@@ -510,11 +507,10 @@ a {
                 <div class="hero-dot"></div>
                 <div class="eyebrow">About</div>
 
-                <h1 class="page-title text-gradient">次は、あなたの声が<br>主人公。</h1>
+                <h1 class="page-title text-gradient">まだ誰も知らない声を、<br>今宵から</h1>
 
                 <p class="hero-copy">
-                    好きな声の表現を、ただの趣味で終わらせないこと。<br>
-                    今宵プロダクションは、<strong>ASMR配信・音声活動に本気で向き合うクリエイター</strong>を支えるプロダクションです。<br><br>
+                    今宵プロダクションは、<strong>ASMR配信・音声活動に本気で向き合うクリエイター</strong>を支えるプロダクションです。<br>
                     経験の有無よりも、声で届けたい世界観と、長く活動していく意思を重視します。
                 </p>
 
@@ -532,7 +528,6 @@ a {
                     <div class="eyebrow">Requirement</div>
                     <h2 class="section-title">Requirement</h2>
                 </div>
-                <p class="section-copy">応募にあたって、配信経験や実績は必須ではありません。活動への意思と、継続できる姿勢を重視します。</p>
             </div>
 
             <div class="requirement-grid">
@@ -558,7 +553,6 @@ a {
                     <div class="eyebrow">Screening Process</div>
                     <h2 class="section-title">Flow</h2>
                 </div>
-                <p class="section-copy">応募後は、活動方針や相性を確認したうえで、無理のない形で活動開始まで進めます。</p>
             </div>
 
             <div class="flow-grid">
